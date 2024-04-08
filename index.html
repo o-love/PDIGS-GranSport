@@ -27,9 +27,6 @@
             Your browser does not support the video tag.
         </video>
 
-
-        <div id="sidebar-container"></div>
-
         <div class="centered-text">
             <h1>Enjoy Gran Canaria <br> <span class="typing-effect"></span></h1>
             <a href="review.html">
@@ -48,9 +45,6 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             initializeTypingEffect('.typing-effect', ["Hiking", "Playing Volleyball", "Kayaking", "Running"]);
             loadHTMLAndExecuteScripts('#header', './header.html');
-            loadHTMLAndExecuteScripts('#sidebar-container', './sidebar.html');
-            loadHTMLAndExecuteScripts('.footer', './footer.html');
-
         });
 
         function loadHTMLAndExecuteScripts(selector, sourceFile) {
@@ -81,33 +75,6 @@
                 document.head.appendChild(scriptTag).parentNode.removeChild(scriptTag);
             });
         }
-
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            var filter = document.getElementById("dark-filter");
-            sidebar.classList.toggle("active");
-
-            if (filter.style.display === "none" || filter.style.display === "") {
-                filter.style.display = "block";
-            } else {
-                filter.style.display = "none";
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var darkFilter = document.getElementById('dark-filter');
-
-            darkFilter.addEventListener('click', function () {
-                var sidebar = document.querySelector('.sidebar');
-
-                if (sidebar) {
-                    sidebar.classList.remove('active');
-                }
-
-                darkFilter.style.display = 'none';
-            });
-        });
-
     </script>
 
 </body>
