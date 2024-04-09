@@ -1,10 +1,27 @@
+#filters{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#filterForm{
+    margin:1rem;
+}
+#searchContainer{
+    margin:1rem;
+}
+
 /* Estilo para el contenedor de eventos */
 #events {
     display: grid;
-    grid-template-columns: repeat(3, 15rem); /* Tres columnas de ancho igual */
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* Columnas automáticas con ancho mínimo de 15rem */
     grid-auto-rows: auto; /* Altura automática para las filas */
     grid-gap: 2rem; /* Espacio entre eventos */
+    justify-content: center;
+    align-items: center;
 }
+
 
 /* Estilo para los eventos */
 .event {
@@ -30,7 +47,7 @@
 
 
 .event-content {
-    padding: 2rem;
+    padding: 1rem;
     background-color: #fff;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
@@ -41,7 +58,7 @@
 }
 
 .event p {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 /* Estilo para resaltar los eventos al pasar el mouse */
