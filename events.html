@@ -1,26 +1,27 @@
-<body>
-    <div id="filterForm">
-        <label for="filterDate">Filtrar por fecha:</label>
-        <input type="date" id="filterDate">
+<div id="filterForm">
+    <label for="filterDate">Filtrar por fecha:</label>
+    <input type="date" id="filterDate">
+</div>
+<div id="events">
+    <div class="event" data-date="2024-04-10">
+        <h3>Event 1</h3>
+        <img src="img/running.png">
+        <p>Event description 1...</p>
+        <p>Fecha: 10th April 2024</p>
     </div>
-    <div id="events">
-        <div class="event" data-date="2024-04-10">
-            <h3>Evento 1</h3>
-            <p>Descripción del evento 1...</p>
-            <p>Fecha: 10 de abril de 2024</p>
-        </div>
-        <div class="event" data-date="2024-04-15">
-            <h3>Evento 2</h3>
-            <p>Descripción del evento 2...</p>
-            <p>Fecha: 15 de abril de 2024</p>
-        </div>
-        <div class="event" data-date="2024-04-20">
-            <h3>Evento 3</h3>
-            <p>Descripción del evento 3...</p>
-            <p>Fecha: 20 de abril de 2024</p>
-        </div>
+    <div class="event" data-date="2024-04-15">
+        <h3>Event 2</h3>
+        <img src="img/running.png">
+        <p>Event description 2...</p>
+        <p>Date: 15th April 2024</p>
     </div>
+    <div class="event" data-date="2024-04-20">
+        <h3>Event 3</h3>
+        <img src="img/running.png">
+        <p>Event description 3...</p>
+        <p>Date: 20th April 2024</p>
+    </div>
+</div>
 
-    <script src="js/filter.js"></script>
-</body>
-</html>
+<script src="js/filter.js"></script>
+<link rel="stylesheet" href="css/events.css">
