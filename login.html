@@ -1,36 +1,44 @@
 <!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Registration Form</title>
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
-
-
-    <div class="wrapper">
-
-        <h1>Login</h1>
-
-        <a href="register.html">
-            <button type="button" id="sign-up" class="btn">
-                Sign up
-            </button>
-        </a>
-
-        <div class="input-box">
-            <input type="text" placeholder="Email Address" required>
+<div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+        <header>Login</header>
+        <form action="#">
+            <input type="text" placeholder="Enter your email">
+            <input type="password" placeholder="Enter your password">
+            <a href="#">Forgot password?</a>
+            <input type="button" class="button" value="Login">
+        </form>
+        <div class="signup">
+        <span class="signup">Don't have an account?
+         <label for="check">Signup</label>
+        </span>
         </div>
-
-        <div class="input-box">
-            <input type="password" placeholder="Password" required>
-        </div>
-
-        <button type="submit" class="btn" id="login">Login</button>
-
     </div>
-
+    <div class="registration form">
+        <header>Signup</header>
+        <form action="#">
+            <input type="text" placeholder="Enter your email">
+            <input type="password" placeholder="Create a password">
+            <input type="password" placeholder="Confirm your password">
+            <input type="button" class="button" value="Signup">
+        </form>
+        <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check">Login</label>
+        </span>
+        </div>
+    </div>
+</div>
 </body>
 </html>
