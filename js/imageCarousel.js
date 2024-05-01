@@ -20,6 +20,12 @@ function setupCarousel() {
             const newIndex = (index + 1) % images.length;
             showImage(newIndex);
         });
+
+        
+        setInterval(() => {
+            const newIndex = (index + 1) % images.length;
+            showImage(newIndex);
+        }, 5000);
     });
 }
 
