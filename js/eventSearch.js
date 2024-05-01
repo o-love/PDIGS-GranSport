@@ -14,6 +14,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    searchInput.addEventListener('keyup', filterEvents);
 });

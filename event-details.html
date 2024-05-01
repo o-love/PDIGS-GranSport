@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Evento</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="css/event-details.css">
+</head>
+<body>
+<header id="header"></header>
+
+<div id="event-details-container">
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>Contact Us: <a href="mailto:info@pdigsgs.com">info@pdigsgs.com</a></p>
+        <p>Follow us on <a href="#">Social Media</a></p>
+        <p>© 2024 PDIGS-GranSport. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventName = urlParams.get('name');
+        const eventDate = urlParams.get('date');
+        const eventDescription = decodeURIComponent(urlParams.get('description'));
+        const eventPrice = decodeURIComponent(urlParams.get('price'));
+        const eventImageUrl = decodeURIComponent(urlParams.get('image_url'));
+        const eventLocation = decodeURIComponent(urlParams.get('location'));
+        const eventMaxParticipants = decodeURIComponent(urlParams.get('max_participants'));
+
+        const [latitude, longitude] = eventLocation.split(', ');
+        const formattedLatitude = formatCoordinate(latitude);
+        const formattedLongitude = formatCoordinate(longitude);
+
+        // Convert DMS to decimal
+        const lat = dmsToDecimal(formattedLatitude);
+        const lng = dmsToDecimal(formattedLongitude);
+
+        const eventDetailsContainer = document.getElementById('event-details-container');
+        eventDetailsContainer.innerHTML = `
+        <div id="event-details-container">
+            <h2 class="event-title">${eventName}</h2>
+
+            <div class="event-image-container">
+                <img src="${eventImageUrl}/img1.png" alt="Event Image" style="width: 20em; height: 15em;">
+                <button class="prev">❮</button>
+                <button class="next">❯</button>
+            </div>
+
+            <div class="event-info">
+                <p class="event-date"><strong>Date:</strong> ${new Date(eventDate).toLocaleDateString('es-ES')}</p>
+                <p class="event-description"><strong>Description:</strong> ${eventDescription}</p>
+                <p class="event-price"><strong>Price:</strong> €${eventPrice}</p>
+                <p class="event-location"><strong>Location:</strong> ${formattedLatitude}, ${formattedLongitude}</p>
+                <p class="event-participants"><strong>Max Participants:</strong> ${eventMaxParticipants}</p>
+            </div>
+
+            <div class="event-map">
+                <div id="mapid" style="height: 180px;"></div>
+            </div>
+        </div>
+        `;
+        // Initialize the map and place a marker
+        const map = L.map('mapid').setView([lat, lng], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([lat, lng]).addTo(map)
+            .bindPopup(`${eventName}<br>${formattedLatitude}, ${formattedLongitude}`).openPopup();
+
+        // Agregar event listeners a los botones para cambiar imágenes
+        const prevButton = eventDetailsContainer.querySelector('.prev');
+        const nextButton = eventDetailsContainer.querySelector('.next');
+
+        prevButton.addEventListener('click', function () {
+            changeImage(-1);
+        });
+
+        nextButton.addEventListener('click', function () {
+            changeImage(1);
+        });
+
+        // Función para cambiar la imagen
+        function changeImage(direction) {
+            const img = eventDetailsContainer.querySelector('img');
+            const imgName = img.src.split('/').pop();
+            let imgNumber = parseInt(imgName.match(/\d+/)[0], 10);
+
+            imgNumber += direction;
+            if (imgNumber < 1) imgNumber = 3;
+            if (imgNumber > 3) imgNumber = 1;
+
+            img.src = `${eventImageUrl}/img${imgNumber}.png`;
+        }
+
+        function formatCoordinate(coord) {
+            let [value, direction] = coord.split('º '); // Divide el valor de la dirección.
+            value = parseFloat(value);
+
+            const degrees = Math.floor(value);
+            const minutesNotTruncated = (value - degrees) * 100;
+            const minutes = Math.floor(minutesNotTruncated);
+            const seconds = ((minutesNotTruncated - minutes) * 100).toFixed(1);
+
+            return `${degrees}°${String(minutes).padStart(2, '0')}'${seconds}"${direction}`;
+        }
+
+        function dmsToDecimal(coord) {
+            const parts = coord.match(/(\d+)°(\d+)'([\d.]+)"(\w)/);
+            const degrees = parseFloat(parts[1]);
+            const minutes = parseFloat(parts[2]);
+            const seconds = parseFloat(parts[3]);
+            const direction = parts[4];
+
+            let decimal = degrees + (minutes / 60) + (seconds / 3600);
+            if (direction === 'S' || direction === 'W') {
+                decimal = decimal * -1;
+            }
+
+            return decimal;
+        }
+
+
+    });
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        loadHTMLAndExecuteScripts('#header', './header.html');
+    });
+
+    function loadHTMLAndExecuteScripts(selector, sourceFile) {
+        fetch(sourceFile)
+            .then(response => response.text())
+            .then(html => {
+                const container = document.querySelector(selector);
+                container.innerHTML = html;
+                executeScripts(container);
+            })
+            .catch(error => console.error('Error loading ' + sourceFile + ':', error));
+    }
+
+    function executeScripts(container) {
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(script => {
+            const scriptTag = document.createElement('script');
+            scriptTag.src = script.src || '';
+            scriptTag.textContent = script.textContent;
+            document.head.appendChild(scriptTag).parentNode.removeChild(scriptTag);
+        });
+    }
+</script>
+</body>
+</html>

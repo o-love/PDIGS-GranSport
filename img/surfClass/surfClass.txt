@@ -1,0 +1,7 @@
+date: May 25, 2024, 10:00:00 a.m. UTC+1
+description: "Beginner's Surf Class"
+image_url: "img/surfClass"
+location: [28°07'51.1"N 15°26'48.5"W]
+max_participants: 15
+name: "Beginner's Surf Class"
+price: 30

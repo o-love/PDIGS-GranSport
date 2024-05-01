@@ -1,15 +1,61 @@
-<div class="site-title"><a href="index.html" style="text-decoration: none; color: #FFD700">CanriSport</a></div>
-
-<nav>
-    <div class="user-options">
-        <a href="basket.html">
-            <img src="./img/cesta.png" height="50" width="50">
-        </a>
+<header>
+    <div class="header-content">
+        <div class="site-title">
+            <a href="index.html" style="text-decoration: none; color: #FFD700">CanarySport</a>
+        </div>
+        <div class="header-options">
+            <nav>
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./login.html">Login</a></li>
+                </ul>
+            </nav>
+            <input type="text" id="eventSearchInput" placeholder="Search events by name..." onkeyup="filterEvents()"style="display: none">
+            <nav>
+                <div class="user-options">
+                </div>
+                <div class="user-options">
+                    <a href="profile.html">
+                        <img src="./img/usuario.png" height="50" width="50">
+                    </a>
+                </div>
+            </nav>
+        </div>
     </div>
+</header>
 
-    <div class="user-options">
-        <a href="profile.html">
-            <img src="./img/usuario.png" height="50" width="50">
-        </a>
-    </div>
-</nav>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener la URL actual y descomponerla en partes
+        var path = window.location.pathname;
+        console.log('Current Path:', path); // Debug: imprimir el path actual
+
+        // Mostrar el campo de búsqueda solo si el nombre de la página es 'events.html'
+        if (path.endsWith('events.html')) {
+            document.getElementById('eventSearchInput').style.display = 'inline';
+        }
+    });
+    function filterEvents() {
+        // Obtiene el valor del input de búsqueda, convirtiéndolo a minúsculas para comparaciones insensibles a mayúsculas.
+        let searchInput = document.getElementById('eventSearchInput').value.toLowerCase();
+
+        // Selecciona todos los elementos de eventos en la página.
+        let events = document.querySelectorAll('.event');
+
+        // Itera sobre cada evento para verificar si coincide con el término de búsqueda.
+        events.forEach(event => {
+            // Obtiene el nombre del evento y la descripción.
+            let eventName = event.querySelector('h2').textContent.toLowerCase();
+            let eventDescription = event.querySelector('.event-description').textContent.toLowerCase();
+
+            // Verifica si el nombre del evento o la descripción contiene el texto de búsqueda.
+            if (eventName.includes(searchInput) || eventDescription.includes(searchInput)) {
+                event.style.display = ''; // Muestra el evento si coincide.
+            } else {
+                event.style.display = 'none'; // Oculta el evento si no coincide.
+            }
+        });
+
+    }
+
+</script>

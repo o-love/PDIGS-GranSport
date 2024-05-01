@@ -1,0 +1,7 @@
+date: July 15, 2024, 8:00:00 a.m. UTC+1
+description: "5K Race through the iconic Roman Park"
+image_url: "img/5kRace"
+location: [28°07'27.5"N 15°25'38.4"W]
+max_participants: 100
+name: "Gran Canaria 5K Race"
+price: 25

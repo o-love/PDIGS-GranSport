@@ -6,32 +6,30 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Poppins, sans-serif;
     line-height: 1.6;
     color: #333;
     background: #009579;
-    padding: 20px;
 }
-
+/*---------------------HEADER STYLES-----------------------------*/
 header {
-    background-color: #222;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin: 1.5em;
 }
 
 .header-content {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
+    padding: 1em;
 }
 
-.logo {
-    max-width: 150px;
+.header-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 nav ul {
@@ -40,7 +38,7 @@ nav ul {
 
 nav ul li {
     display: inline;
-    margin-left: 10px;
+
 }
 
 nav ul li a {
@@ -59,29 +57,67 @@ input[type="text"] {
     width: 300px;
     border: none;
     border-radius: 5px;
+    font-family: Poppins, sans-serif;
 }
 
+
+.user-options, .menu-button {
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    font-size: 47px;
+    display: inline-block;
+}
+
+.centered-text {
+    position: absolute;
+    top: 53%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 80%;
+}
+
+.centered-text h1 {
+    font-size: 50px;
+    color: white;
+}
+
+.site-title {
+    font-size: 3vw;
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+    align-items: center;
+    left: -35%;
+    bottom: 10px;
+    border-radius: 600px;
+}
+/* Estilos principales de la estructura y disposición */
 main {
     background: white;
-    margin-top: 20px;
+    margin: 1.5em auto;  /* Centrado automático con margen uniforme */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera para profundidad */
 }
 
 h1 {
     color: #333;
-    margin-bottom: 20px;
-}
-#eventList {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px; /* Espaciado consistente debajo de los títulos */
 }
 
+/* Estilo para la lista de eventos, centrado con dimensiones definidas */
+#eventList {
+    max-width: 1200px;
+    margin: 20px auto; /* Centrado con margen superior e inferior */
+    padding: 20px;
+    background: white; /* Consistente con el estilo de fondo principal */
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para cada evento individual */
 .event {
     display: flex;
     flex-direction: column;
@@ -89,75 +125,83 @@ h1 {
 }
 
 .event:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0; /* Elimina el margen del último evento */
 }
 
+/* Estilos para los títulos de eventos */
 h2 {
     font-size: 24px;
-    color: #009579;
-    padding: 8px 0;
+    color: #009579; /* Color distintivo para los títulos de eventos */
+    padding: 8px 0; /* Espaciado superior e inferior para los títulos */
 }
 
+/* Estilos para el contenedor de información del evento */
 .event-info {
     padding: 15px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
+
+/* Configuración del contenedor de imágenes de eventos */
 .event-image-container {
     position: relative;
-    width: 100%;  /* Asegura que el contenedor ocupe el ancho necesario */
-    height: 200px; /* Asegura que el contenedor tenga una altura fija */
-    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
 }
 
 .images {
     position: relative;
+    border-radius: 10px;
     width: 100%;
     height: 100%;
 }
 
+/* Estilos para las imágenes dentro de eventos */
 .event-image {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 50%;
     height: 100%;
     object-fit: contain;
-    opacity: 0; /* Inicia con opacidad 0 para que estén ocultas */
-    transition: opacity 0.3s ease-in-out; /* Transición suave para el cambio de opacidad */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px; /* Aplica bordes redondeados a las imágenes */
+    transform: translateX(-50%);
 }
 
 .event-image.visible {
-    opacity: 1; /* Solo la imagen visible tendrá opacidad 1 */
-}
-
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para mejor visibilidad */
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    padding: 0 20px;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.prev {
-    left: 10px;
-}
-
-.next {
-    right: 10px;
-}
-
-
-.prev:hover, .next:hover {
     opacity: 1;
 }
 
+/* Estilos para los botones de navegación de las imágenes */
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #009579;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 24px;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    opacity: 0.8; /* Añadido para mejor interactividad en el hover */
+}
+
+/* Estilos para detalles del evento como fecha, descripción y precio */
 .event-date-time, .event-description, .event-price {
     margin: 10px 0;
     display: flex;
@@ -168,6 +212,7 @@ h2 {
     margin-right: 10px;
 }
 
+/* Estilos para el enlace de detalles del evento */
 .details-link {
     display: inline-block;
     background-color: #009579;
@@ -179,9 +224,10 @@ h2 {
 }
 
 .details-link:hover {
-    background-color: #007961;
+    background-color: #007961; /* Efecto hover más suave */
 }
 
+/*---------------------FOOTER STYLES-----------------------------*/
 footer {
     text-align: center;
     margin-top: 30px;

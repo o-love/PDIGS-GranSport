@@ -1,57 +1,121 @@
-import { db } from '/js/firebaseIntegration.js';
+// Importar la instancia de Firestore desde firebaseIntegration.js
+import {db} from './firebaseIntegration.js';
+import {collection, getDocs} from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-    const eventListContainer = document.getElementById('eventList');
-
-    // Function to fetch events from Firestore
-    async function fetchEvents() {
-        const snapshot = await db.collection('events').get();
-        snapshot.forEach(doc => {
+async function fetchEvents() {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'events'));
+        querySnapshot.forEach(doc => {
             const event = doc.data();
-            eventListContainer.appendChild(createEventElement(event));
+            createEventElement(event);
         });
+    } catch (error) {
+        console.error("Error fetching events:", error);
     }
+}
 
-    // Function to create HTML for each event
-    function createEventElement(event) {
-        const article = document.createElement('article');
-        article.className = 'event';
+function createEventElement(event) {
+    const article = document.createElement('article');
+    article.className = 'event';
 
-        const title = document.createElement('h2');
-        title.textContent = event.name;
+    const title = document.createElement('h2');
+    title.textContent = event.name;
 
-        const image = document.createElement('img');
-        image.src = event.image_url || '/img/default-image.png'; // Fallback image if none is provided
-        image.alt = event.name;
-        image.className = 'event-image';
+    // Contenedor principal para la información del evento
+    const eventInfo = document.createElement('div');
+    eventInfo.className = 'event-info';
 
-        const dateTime = document.createElement('p');
-        dateTime.className = 'event-date-time';
-        dateTime.innerHTML = `<i class="fa fa-calendar" aria-hidden="true"></i> ${event.date}`;
+    // Contenedor de imágenes
+    const eventImageContainer = document.createElement('div');
+    eventImageContainer.className = 'event-image-container';
+    const imagesDiv = document.createElement('div');
+    imagesDiv.className = 'images';
 
-        const description = document.createElement('p');
-        description.className = 'event-description';
-        description.innerHTML = `<i class="fa fa-info-circle" aria-hidden="true"></i> ${event.description}`;
+    // Agregar las imágenes
+    const img1 = document.createElement('img');
+    img1.src = `${event.image_url}/img1.png`;
+    img1.alt = event.name;
+    img1.className = 'event-image visible';
 
-        const price = document.createElement('p');
-        price.className = 'event-price';
-        price.innerHTML = `<i class="fa fa-ticket" aria-hidden="true"></i> Price: ${event.price}`;
+    const img2 = document.createElement('img');
+    img2.src = `${event.image_url}/img2.png`;
+    img2.alt = event.name;
+    img2.className = 'event-image';
 
-        const detailsLink = document.createElement('a');
-        detailsLink.href = 'event-details.html';
-        detailsLink.className = 'details-link';
-        detailsLink.innerHTML = `<i class="fa fa-arrow-right" aria-hidden="true"></i> More Details`;
+    const img3 = document.createElement('img');
+    img3.src = `${event.image_url}/img3.png`;
+    img3.alt = event.name;
+    img3.className = 'event-image';
 
-        article.appendChild(image);
-        article.appendChild(title);
-        article.appendChild(dateTime);
-        article.appendChild(description);
-        article.appendChild(price);
-        article.appendChild(detailsLink);
+    imagesDiv.appendChild(img1);
+    imagesDiv.appendChild(img2);
+    imagesDiv.appendChild(img3);
 
-        return article;
-    }
+    // Botones de navegación
+    const prevButton = document.createElement('button');
+    prevButton.className = 'prev';
+    prevButton.textContent = '❮';
 
-    // Call the function to fetch events when the page loads
-    fetchEvents();
-});
+    const nextButton = document.createElement('button');
+    nextButton.className = 'next';
+    nextButton.textContent = '❯';
+
+    eventImageContainer.appendChild(imagesDiv);
+    eventImageContainer.appendChild(prevButton);
+    eventImageContainer.appendChild(nextButton);
+
+    // Suponiendo que event.date es un objeto Timestamp de Firestore
+    const dateObject = event.date.toDate(); // Convertir Timestamp a objeto Date de JavaScript
+
+    // Formatear la fecha a un formato más legible
+    const options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'};
+    const formattedDate = dateObject.toLocaleDateString('es-ES', options); // Asumiendo que quieres el formato en español
+
+    // Crear el elemento p y asignarle el contenido
+    const dateTime = document.createElement('p');
+    dateTime.className = 'event-date-time';
+    dateTime.innerHTML = `<i class="fa fa-calendar" aria-hidden="true"></i> ${formattedDate}`;
+
+    const description = document.createElement('p');
+    description.className = 'event-description';
+    description.innerHTML = `<i class="fa fa-info-circle" aria-hidden="true"></i> ${event.description}`;
+
+    const price = document.createElement('p');
+    price.className = 'event-price';
+    price.innerHTML = `<i class="fa fa-ticket" aria-hidden="true"></i> Price: ${event.price}`;
+
+    // Asegúrate de formatear correctamente la localización
+    const latitude = event.location.latitude;
+    const longitude = event.location.longitude;
+    const formattedLocation = `${Math.abs(latitude)}º ${latitude >= 0 ? 'N' : 'S'}, ${Math.abs(longitude)}º ${longitude >= 0 ? 'E' : 'W'}`;
+
+    /*const location = document.createElement('p');
+    location.className = 'event-location';
+    location.innerHTML = `<i class="fa fa-map-marker" aria-hidden="true"></i> Location: ${formattedLocation}`;
+*/
+    const detailsLink = document.createElement('a');
+    detailsLink.href = `event-details.html?name=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date.toDate())}&description=${encodeURIComponent(event.description)}&price=${encodeURIComponent(event.price)}&image_url=${encodeURIComponent(event.image_url)}&location=${encodeURIComponent(formattedLocation)}&max_participants=${encodeURIComponent(event.max_participants)}`;
+    detailsLink.className = 'details-link';
+    detailsLink.innerHTML = `<i class="fa fa-arrow-right" aria-hidden="true"></i> More Details`;
+
+    // Agregar todo al contenedor de información del evento
+    eventInfo.appendChild(eventImageContainer);
+    eventInfo.appendChild(dateTime);
+    eventInfo.appendChild(description);
+    eventInfo.appendChild(price);
+/*
+    eventInfo.appendChild(location);
+*/
+    eventInfo.appendChild(detailsLink);
+
+    // Componer el artículo completo
+    article.appendChild(title);
+    article.appendChild(eventInfo);
+
+    const eventListContainer = document.getElementById('eventList');
+    eventListContainer.appendChild(article);
+}
+
+
+
+document.addEventListener('DOMContentLoaded', fetchEvents);

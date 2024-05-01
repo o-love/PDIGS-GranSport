@@ -6,55 +6,14 @@
     <title>Event List - PDIGS-GranSport</title>
     <link rel="stylesheet" href="./css/event-style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="/js/eventSearch.js" defer></script>
 </head>
 <body>
-<header>
-    <div class="header-content">
-        <img src="/img/granSport.png" alt="GranSport Logo" class="logo" width="80" height=auto>
-        <nav>
-            <ul>
-                <!-- Falta que esto redirija bien -->
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/login.html">Login</a></li>
-            </ul>
-        </nav>
-        <input type="text" id="eventSearchInput" placeholder="Search events by name..." onkeyup="filterEvents()">
-    </div>
+<header id="header">
 </header>
 <main>
     <h1>Upcoming Events</h1>
     <section id="eventList">
-        <article class="event">
-            <h2>Volleyball Tournament</h2>
-            <div class="event-info">
-                <div class="event-image-container">
-                    <div class="images">
-                        <img src="/img/cesta.png"  alt="Event Name" class="event-image visible">
-                        <img src="/img/running.png" alt="Event Name" class="event-image">
-                        <img src="/img/usuario.png" alt="Event Name" class="event-image">
-                    </div>
-                    <button class="prev">❮</button>
-                    <button class="next">❯</button>
-                </div>
-                <p class="event-date-time"><i class="fa fa-calendar" aria-hidden="true"></i> April 26, 18:00</p>
-                <p class="event-description"><i class="fa fa-info-circle" aria-hidden="true"></i> That's a fantastic volleyball tournament that has one of the bests awards of all the times.</p>
-                <p class="event-price"><i class="fa fa-ticket" aria-hidden="true"></i> Price: Free</p>
-                <a href="event-details.html" class="details-link"><i class="fa fa-arrow-right" aria-hidden="true"></i> More Details</a>
-            </div>
-        </article>
-        <article class="event">
-            <img src="/img/event2.jpg" alt="Event 2" class="event-image">
-            <div class="event-info">
-                <h2>Another Event Name</h2>
-                <p class="event-date-time">Date and Time: May 15, 20:00</p>
-                <p class="event-description">This is another example of an event description that could be quite long
-                    and detailed.</p>
-                <p class="event-price">Price: $10</p>
-                <a href="event-details.html" class="details-link">More Details</a>
-            </div>
-        </article>
-        <!-- Repeat the article block for more events, or dynamically generate content using JavaScript -->
+        <!-- Aquí se cargarán los eventos -->
     </section>
 </main>
 <footer>
@@ -65,8 +24,66 @@
     </div>
 </footer>
 
+<!-- Carga de scripts -->
+<script type="module">
+    import '/js/firebaseIntegration.js'; // Asegúrate de que esta ruta es correcta
+    import '/js/loadEvents.js'; // Asegúrate de que esta ruta es correcta
+</script>
+<script src="/js/eventSearch.js" defer></script>
 <script src="/js/imageCarousel.js"></script>
-<script type="module" src="/js/loadEvents.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOMContentLoaded event triggered');
+        loadHTMLAndExecuteScripts('#header', './header.html', function() {
+            console.log('Header loaded and callback triggered');
+            var path = window.location.pathname;
+            console.log('Current Path:', path);
+
+            if (path.endsWith('events.html')) {
+                var searchInput = document.getElementById('eventSearchInput');
+                if (searchInput) {
+                    searchInput.style.display = 'inline';
+                    console.log('Search input displayed');
+                } else {
+                    console.error('Element #eventSearchInput not found after header load');
+                }
+            }
+        });
+    });
+
+    function loadHTMLAndExecuteScripts(selector, sourceFile, callback) {
+        console.log('Attempting to load HTML from:', sourceFile);
+        fetch(sourceFile)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(html => {
+                console.log('HTML loaded from ' + sourceFile);
+                const container = document.querySelector(selector);
+                container.innerHTML = html;
+                executeScripts(container);
+                if (callback) callback();
+            })
+            .catch(error => console.error('Error loading ' + sourceFile + ':', error));
+    }
+
+    function executeScripts(container) {
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(script => {
+            const scriptTag = document.createElement('script');
+            if (script.src) {
+                scriptTag.src = script.src;
+            } else {
+                scriptTag.textContent = script.textContent;
+            }
+            document.head.appendChild(scriptTag).parentNode.removeChild(scriptTag);
+        });
+    }
+</script>
 
 
 </body>

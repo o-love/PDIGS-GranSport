@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+function setupCarousel() {
     const containers = document.querySelectorAll('.event-image-container');
 
     containers.forEach(container => {
@@ -21,4 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
             showImage(newIndex);
         });
     });
+}
+
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length) {
+            setupCarousel();
+        }
+    });
 });
+
+observer.observe(document.body, { childList: true, subtree: true });
