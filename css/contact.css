@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #009579;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h1 {
+    margin-left: 30px;
+    flex: 0 0 10%;
+}
+.caja{
+    display: flex;
+    flex: 0 0 70%;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.carrito {
+    background: none; /* Quita el fondo del botón */
+    border: none; /* Quita el borde del botón */
+    padding: 0; /* Quita el relleno interno del botón */
+    cursor: pointer; /*
+}
+
+.image-button {
+    display: inline-block; /* Ajusta el enlace como un elemento en línea */
+    text-decoration: none; /* Quita el subrayado del enlace */
+}
+
+.image-button img {
+    border: none; /* Quita el borde de la imagen */
+    cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+#map {
+    height: 400px;
+    margin-bottom: 20px;
+}
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.contact-info div {
+    flex-basis: 30%;
+}
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+form input[type="submit"]:hover {
+    background-color: #555;
+}
