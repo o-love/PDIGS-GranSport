@@ -1,3 +1,4 @@
+<header id="header"></header>
 <section class="about-us">
   <div class="container">
     <div class="first">
@@ -5,10 +6,10 @@
         About us
       </h1>
       <p class="about-us-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Get to know us, view our events and participate. 
       </p>
       <button class="events-button">
-        View Events
+        <a href="./events.html">View Events</a>
       </button>  
     </div>
     <div class="second">
@@ -25,9 +26,58 @@
     <div id="map"></div>
   </div>
 </section>
-
+<footer>
+  <div class="footer-content">
+      <p>Contact Us: <a href="mailto:info@pdigsgs.com">info@pdigsgs.com</a></p>
+      <p>Follow us on <a href="#">Social Media</a></p>
+      <p>© 2024 PDIGS-GranSport. All rights reserved.</p>
+  </div>
+</footer>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <link rel="stylesheet" href="css/about-us.css">
+<link rel="stylesheet" href="css/event-style.css">
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="js/map.js"></script>
 <script src="js/imageCarousel.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+      console.log('DOMContentLoaded event triggered');
+      loadHTMLAndExecuteScripts('#header', './header.html', function() {
+          console.log('Header loaded and callback triggered');
+          var path = window.location.pathname;
+          console.log('Current Path:', path);
+
+          if (path.endsWith('events.html')) {
+              var searchInput = document.getElementById('eventSearchInput');
+              if (searchInput) {
+                  searchInput.style.display = 'inline';
+                  console.log('Search input displayed');
+              } else {
+                  console.error('Element #eventSearchInput not found after header load');
+              }
+          }
+      });
+  });
+
+  function loadHTMLAndExecuteScripts(selector, sourceFile, callback) {
+      console.log('Attempting to load HTML from:', sourceFile);
+      fetch(sourceFile)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Network response was not ok: ' + response.statusText);
+              }
+              return response.text();
+          })
+          .then(html => {
+              console.log('HTML loaded from ' + sourceFile);
+              const container = document.querySelector(selector);
+              container.innerHTML = html;
+              executeScripts(container);
+              if (callback) callback();
+          })
+          .catch(error => console.error('Error loading ' + sourceFile + ':', error));
+  }
+
+  
+</script>
