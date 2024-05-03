@@ -9,6 +9,35 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+<script type="module">
+
+import { auth, userSignup, userSignIn } from '/js/firebaseAuth.js';
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // Redirect to profile page if user is logged in.
+        window.location.href = 'profile.html';
+    } else {
+        // User not logged in or has just logged out.
+    }
+});
+
+document.querySelector('.login form .button').addEventListener('click', () => {
+    const email = document.querySelector('.login form input[type="text"]').value;
+    const password = document.querySelector('.login form input[type="password"]').value;
+
+    userSignIn(email, password);
+});
+
+document.querySelector('.registration form .button').addEventListener('click', () => {
+    const email = document.querySelector('.registration form input[type="text"]').value;
+    const password = document.querySelector('.registration form input[type="password"]').value;
+
+    userSignup(email, password);
+});
+
+</script>
+
+
 <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
