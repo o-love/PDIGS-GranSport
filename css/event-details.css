@@ -1,100 +1,172 @@
-
-/*---------------------HEADER STYLES-----------------------------*/
-header {
-    background-color: #333;
-    border-radius: 10px;
-    margin: 1.5em;
+/* Reset básico para estilos de navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 200;
+    font-family: "Raleway", sans-serif !important;
 }
 
-.header-content {
-    display: flex;
-    flex-direction: column;
+body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
 }
 
-.header-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-nav ul {
+ul {
     list-style-type: none;
 }
 
-nav ul li {
-    display: inline;
-
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 5px 10px;
-    transition: background-color 0.3s;
-}
-
-nav ul li a:hover {
-    background-color: #575757;
-}
-
-input[type="text"] {
-    padding: 8px;
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-    font-family: Poppins, sans-serif;
+a {
+    text-decoration: none !important;
 }
 
 
-.user-options, .menu-button {
+/*---------------------HEADER STYLES-----------------------------*/
+/* Nav Screen */
+
+.nav-screen {
+    height: 100%;
+    z-index: 500;
+    position: fixed;
+    background-color: #000;
+    opacity: 1;
+    right: -285px; /* start off behind the scenes */
+    -webkit-font-smoothing: antialiased;
+    position: fixed;
+    width: 285px;
+}
+
+.nav-screen .active {
+    display: block;
+}
+
+/* nav header links */
+
+.fa-bars {
+    display: none !important;
+    color: #ff6363;
+    float: right;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    z-index: 500;
     cursor: pointer;
-    color: #fff;
-    font-weight: 600;
-    font-size: 47px;
-    display: inline-block;
 }
 
-.centered-text {
-    position: absolute;
-    top: 53%;
-    left: 55%;
-    transform: translate(-50%, -50%);
+.fa-times {
+    color: #ff6363;
+    float: right;
+    padding: 20px;
+    right: 0;
+    z-index: 600;
+    cursor: pointer;
+}
+
+.header-links {
+    color: black;
+    position: fixed;
     width: 100%;
-    max-width: 80%;
+    z-index: 500;
 }
 
-.centered-text h1 {
-    font-size: 50px;
-    color: white;
+.header-links li {
+    color: black;
+    display: inline;
+    float: right;
+    padding: 15px;
+    font-size: 16px;
 }
 
-.site-title {
-    font-size: 3vw;
-    color: #fff;
-    font-weight: 600;
-    display: inline-block;
-    align-items: center;
-    left: -35%;
-    bottom: 10px;
-    border-radius: 600px;
+.header-links a {
+    color: black;
+    -webkit-transition: all 0.2s ease-in;
 }
+
+.header-links a:hover {
+    color: black !important;
+}
+
+/* slide out nav menu styles */
+
+.nav-container {
+    padding-top: 10%;
+}
+
+.nav-links {
+    width: 250px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-links ul {
+    margin-top: 15%;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.nav-links a {
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 2.5;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-links a:hover {
+    color: #ff6363;
+    -webkit-transition: all 0.6s ease-in-out;
+    -o-transition: all 0.6s ease-in-out;
+    -ms-transition: all 0.6s ease-in-out;
+    -moz-transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease-in-out;
+}
+
+#fp-nav ul li .fp-tooltip {
+    color: #5f5f5f !important;
+}
+
+/* Expanding border effect */
+
+.header-links a::after {
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    content: "";
+    opacity: 0;
+    -webkit-transition: width 0.6s, opacity 0.8s;
+    -moz-transition: width 0.6s, opacity 0.8s;
+    transition: width 0.6s, opacity 0.8s;
+}
+
+.header-links a:hover::after,
+.header-links a:focus::after {
+    opacity: 1;
+    width: 100%;
+}
+
+#searchIcon {
+    cursor: pointer;
+    color: black; /* Establece el color del ícono */
+    position: absolute; /* Posiciona absolutamente dentro del 'li' */
+    right: 10px; /* Ajusta según el padding o margen de tu contenedor específico */
+    top: 50%; /* Centra verticalmente el ícono dentro del 'li' */
+    transform: translateY(-50%); /* Asegura un centrado vertical perfecto */
+}
+
+
 
 /*---------------------MAIN STYLES-----------------------------*/
-/* Estilos Generales */
-body {
-    font-family: Poppins, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #009579;
-    color: #333;
-}
+
 
 h2{
     font-family: Poppins, sans-serif;
-    text-align: center;
-    font-weight: bolder;
+    text-align: left;
     font-size: 2.5em;
 
 }
@@ -107,6 +179,7 @@ h2{
 }
 
 .event-image-container {
+    margin-top: 20px;
     position: relative;
     text-align: center;
     margin-bottom: 20px;
@@ -115,9 +188,9 @@ h2{
 
 
 .event-title {
-    color: #007BFF;
-    text-align: center;
+    color: #009579;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .event-image-container {
@@ -135,7 +208,7 @@ button.prev, button.next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #009579;
+    background-color: transparent;
     color: white;
     border: none;
     cursor: pointer;
@@ -160,9 +233,7 @@ button.next {
     padding-bottom: 10px;
 }
 
-.event-map {
-    margin-top: 20px;
-}
+
 
 #mapid {
     width: 100%;
@@ -181,20 +252,3 @@ button.next {
     }
 }
 
-/*---------------------FOOTER STYLES-----------------------------*/
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding: 20px 10px;
-    background-color: #222;
-    color: white;
-}
-
-.footer-content p a {
-    color: #9ab;
-    text-decoration: none;
-}
-
-.footer-content p a:hover {
-    text-decoration: underline;
-}

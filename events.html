@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event List - PDIGS-GranSport</title>
     <link rel="stylesheet" href="./css/event-style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<header id="header">
-</header>
+<div class="nav-header">
+    <div class="header-links">
+        <ul>
+            <li data-menuanchor="fifthPage"><a href="login.html" style="color: black">SIGN IN</a></li>
+            <li data-menuanchor="fourthPage"><a href="index.html" style="color: black">HOME</a></li>
+            <li data-menuanchor="thirdPage"><a href="index.html#portfolio" style="color: black">CONTACT</a></li>
+            <li data-menuanchor="secondPage"><a href="index.html#about" style="color: black">ABOUT US</a></li>
+            <li style="position: relative;">
+                <input type="text" id="eventSearchInput" placeholder="Search events..." onkeyup="filterEvents()" style="display: none; width: 75%">
+                <i class="fa fa-search" id="searchIcon" style="cursor: pointer;;"></i>
+                <i class="fa fa-times" id="closeIcon" style="cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); display: none;"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <main>
     <h1>Upcoming Events</h1>
     <section id="eventList">
         <!-- Aquí se cargarán los eventos -->
     </section>
 </main>
-<footer>
-    <div class="footer-content">
-        <p>Contact Us: <a href="mailto:info@pdigsgs.com">info@pdigsgs.com</a></p>
-        <p>Follow us on <a href="#">Social Media</a></p>
-        <p>© 2024 PDIGS-GranSport. All rights reserved.</p>
-    </div>
-</footer>
 
 <!-- Carga de scripts -->
 <script type="module">
@@ -83,6 +90,42 @@
             document.head.appendChild(scriptTag).parentNode.removeChild(scriptTag);
         });
     }
+    function filterEvents() {
+        // Obtiene el valor del input de búsqueda, convirtiéndolo a minúsculas para comparaciones insensibles a mayúsculas.
+        let searchInput = document.getElementById('eventSearchInput').value.toLowerCase();
+
+        // Selecciona todos los elementos de eventos en la página.
+        let events = document.querySelectorAll('.event');
+
+        // Itera sobre cada evento para verificar si coincide con el término de búsqueda.
+        events.forEach(event => {
+            // Obtiene el nombre del evento y la descripción.
+            let eventName = event.querySelector('h2').textContent.toLowerCase();
+            let eventDescription = event.querySelector('.event-description').textContent.toLowerCase();
+
+            // Verifica si el nombre del evento o la descripción contiene el texto de búsqueda.
+            if (eventName.includes(searchInput) || eventDescription.includes(searchInput)) {
+                event.style.display = ''; // Muestra el evento si coincide.
+            } else {
+                event.style.display = 'none'; // Oculta el evento si no coincide.
+            }
+        });
+    }
+
+    document.getElementById('searchIcon').addEventListener('click', function() {
+        document.getElementById('eventSearchInput').style.display = 'inline-block';
+        this.style.display = 'none';
+        document.getElementById('closeIcon').style.display = 'block';
+    });
+
+    document.getElementById('closeIcon').addEventListener('click', function() {
+        document.getElementById('eventSearchInput').style.display = 'none';
+        this.style.display = 'none';
+        document.getElementById('searchIcon').style.display = 'block';
+    });
+
+
+
 </script>
 
 

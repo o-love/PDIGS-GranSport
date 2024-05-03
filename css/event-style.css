@@ -3,100 +3,191 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-weight: 200;
 }
 
 body {
-    font-family: Poppins, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background: #009579;
-}
-/*---------------------HEADER STYLES-----------------------------*/
-header {
-    background-color: #333;
-    border-radius: 10px;
-    margin: 1.5em;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    font-family: "Raleway", sans-serif !important;
 }
 
-.header-content {
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-}
-
-.header-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-nav ul {
+ul {
     list-style-type: none;
 }
 
-nav ul li {
-    display: inline;
-
+a {
+    text-decoration: none !important;
 }
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 5px 10px;
-    transition: background-color 0.3s;
+/*---------------------HEADER STYLES-----------------------------*/
+/* Nav Screen */
+
+.nav-screen {
+    height: 100%;
+    z-index: 500;
+    position: fixed;
+    background-color: #000;
+    opacity: 1;
+    right: -285px; /* start off behind the scenes */
+    -webkit-font-smoothing: antialiased;
+    position: fixed;
+    width: 285px;
 }
 
-nav ul li a:hover {
-    background-color: #575757;
+.nav-screen .active {
+    display: block;
 }
 
-input[type="text"] {
-    padding: 8px;
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-    font-family: Poppins, sans-serif;
-}
+/* nav header links */
 
-
-.user-options, .menu-button {
+.fa-bars {
+    display: none !important;
+    color: #ff6363;
+    float: right;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    z-index: 500;
     cursor: pointer;
-    color: #fff;
-    font-weight: 600;
-    font-size: 47px;
-    display: inline-block;
 }
 
-.centered-text {
-    position: absolute;
-    top: 53%;
-    left: 55%;
-    transform: translate(-50%, -50%);
+.fa-times {
+    color: #ff6363;
+    float: right;
+    padding: 20px;
+    right: 0;
+    z-index: 600;
+    cursor: pointer;
+}
+
+.header-links {
+    color: black;
+    position: fixed;
     width: 100%;
-    max-width: 80%;
+    z-index: 500;
 }
 
-.centered-text h1 {
-    font-size: 50px;
-    color: white;
+.header-links li {
+    color: black;
+    display: inline;
+    float: right;
+    padding: 15px;
+    font-size: 16px;
 }
 
-.site-title {
-    font-size: 3vw;
-    color: #fff;
-    font-weight: 600;
-    display: inline-block;
-    align-items: center;
-    left: -35%;
-    bottom: 10px;
-    border-radius: 600px;
+.header-links a {
+    color: black;
+    -webkit-transition: all 0.2s ease-in;
 }
+
+.header-links a:hover {
+    color: black !important;
+}
+
+/* slide out nav menu styles */
+
+.nav-container {
+    padding-top: 10%;
+}
+
+.nav-links {
+    width: 250px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-links ul {
+    margin-top: 15%;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.nav-links a {
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 2.5;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-links a:hover {
+    color: #ff6363;
+    -webkit-transition: all 0.6s ease-in-out;
+    -o-transition: all 0.6s ease-in-out;
+    -ms-transition: all 0.6s ease-in-out;
+    -moz-transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease-in-out;
+}
+
+#fp-nav ul li .fp-tooltip {
+    color: #5f5f5f !important;
+}
+
+/* Expanding border effect */
+
+.header-links a::after {
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    content: "";
+    opacity: 0;
+    -webkit-transition: width 0.6s, opacity 0.8s;
+    -moz-transition: width 0.6s, opacity 0.8s;
+    transition: width 0.6s, opacity 0.8s;
+}
+
+.header-links a:hover::after,
+.header-links a:focus::after {
+    opacity: 1;
+    width: 100%;
+}
+
+#searchIcon {
+    cursor: pointer;
+    color: black; /* Establece el color del ícono */
+}
+
+
+#searchIcon:hover + #searchInput,
+#searchInput:hover {
+    opacity: 1;
+    visibility: visible;
+    right: 30px; /* Ajusta esto según la posición deseada del input */
+    pointer-events: auto;
+}
+
+#eventSearchInput {
+    width: 75%; /* Controla el ancho del input */
+    padding: 8px 10px; /* Espaciado interno para hacerlo más accesible */
+    font-size: 16px; /* Tamaño de fuente legible */
+    border: 2px solid #ccc; /* Borde sutil */
+    border-radius: 20px; /* Bordes redondeados para un look moderno */
+    outline: none; /* Remueve el outline al enfocar */
+    transition: border-color 0.3s; /* Transición suave del borde */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Sombra interna suave */
+    background: rgba(255, 255, 255, 0.9); /* Fondo ligeramente transparente */
+    color: #333; /* Color del texto */
+}
+
+#eventSearchInput:focus {
+    border-color: black; /* Cambia el color del borde al enfocar */
+}
+
+
+
+/*---------------------MAIN STYLES-----------------------------*/
+
 /* Estilos principales de la estructura y disposición */
 main {
     background: white;
-    margin: 1.5em auto;  /* Centrado automático con margen uniforme */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera para profundidad */
@@ -146,64 +237,39 @@ h2 {
 /* Configuración del contenedor de imágenes de eventos */
 .event-image-container {
     position: relative;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+    width: 100%; /* Ajusta esto según el ancho deseado del contenedor */
+    height: 25em; /* Ajusta esto según la altura deseada del contenedor */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que exceda el contenedor */
 }
 
 .images {
-    position: relative;
-    border-radius: 10px;
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
-/* Estilos para las imágenes dentro de eventos */
 .event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cubre el área del contenedor sin perder las proporciones */
     position: absolute;
     top: 0;
-    left: 50%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    border-radius: 10px; /* Aplica bordes redondeados a las imágenes */
-    transform: translateX(-50%);
+    left: 0;
 }
 
-.event-image.visible {
-    opacity: 1;
+.visible {
+    z-index: 2; /* Asegura que la imagen visible esté encima de las otras */
+    border-radius: 10px;
 }
 
-/* Estilos para los botones de navegación de las imágenes */
-button.prev, button.next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #009579;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    font-size: 24px;
-}
-
-button.prev {
-    left: 10px;
-}
-
-button.next {
-    right: 10px;
-}
-
-.prev:hover, .next:hover {
-    opacity: 0.8; /* Añadido para mejor interactividad en el hover */
+.event-image:not(.visible) {
+    display: none; /* Oculta las imágenes no activas */
 }
 
 /* Estilos para detalles del evento como fecha, descripción y precio */
 .event-date-time, .event-description, .event-price {
-    margin: 10px 0;
+    margin: 2em 0;
+    font-size: larger;
     display: flex;
     align-items: center;
 }
@@ -225,22 +291,4 @@ button.next {
 
 .details-link:hover {
     background-color: #007961; /* Efecto hover más suave */
-}
-
-/*---------------------FOOTER STYLES-----------------------------*/
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding: 20px 10px;
-    background-color: #222;
-    color: white;
-}
-
-.footer-content p a {
-    color: #9ab;
-    text-decoration: none;
-}
-
-.footer-content p a:hover {
-    text-decoration: underline;
 }

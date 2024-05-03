@@ -69,20 +69,20 @@ function createEventElement(event) {
 
     // Formatear la fecha a un formato más legible
     const options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'};
-    const formattedDate = dateObject.toLocaleDateString('es-ES', options); // Asumiendo que quieres el formato en español
+    const formattedDate = dateObject.toLocaleDateString('en-EN', options); // Asumiendo que quieres el formato en español
 
     // Crear el elemento p y asignarle el contenido
     const dateTime = document.createElement('p');
     dateTime.className = 'event-date-time';
-    dateTime.innerHTML = `<i class="fa fa-calendar" aria-hidden="true"></i> ${formattedDate}`;
+    dateTime.innerHTML = `<i class="far fa-calendar-alt" aria-hidden="true" style="margin-right: 10px"></i> ${formattedDate}`;
 
     const description = document.createElement('p');
     description.className = 'event-description';
-    description.innerHTML = `<i class="fa fa-info-circle" aria-hidden="true"></i> ${event.description}`;
+    description.innerHTML = `<i class="fas fa-info-circle" aria-hidden="true" style="margin-right: 10px"></i> ${event.description}`;
 
     const price = document.createElement('p');
     price.className = 'event-price';
-    price.innerHTML = `<i class="fa fa-ticket" aria-hidden="true"></i> Price: ${event.price}`;
+    price.innerHTML = `<i class="fas fa-ticket-alt" aria-hidden="true" style="margin-right: 10px"></i> Price: ${event.price} €`;
 
     // Asegúrate de formatear correctamente la localización
     const latitude = event.location.latitude;
@@ -96,7 +96,7 @@ function createEventElement(event) {
     const detailsLink = document.createElement('a');
     detailsLink.href = `event-details.html?name=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date.toDate())}&description=${encodeURIComponent(event.description)}&price=${encodeURIComponent(event.price)}&image_url=${encodeURIComponent(event.image_url)}&location=${encodeURIComponent(formattedLocation)}&max_participants=${encodeURIComponent(event.max_participants)}`;
     detailsLink.className = 'details-link';
-    detailsLink.innerHTML = `<i class="fa fa-arrow-right" aria-hidden="true"></i> More Details`;
+    detailsLink.innerHTML = `<i class="fas fa-arrow-circle-right" aria-hidden="true" style="margin-right: 10px"></i> More Details`;
 
     // Agregar todo al contenedor de información del evento
     eventInfo.appendChild(eventImageContainer);

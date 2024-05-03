@@ -9,18 +9,19 @@
     <link rel="stylesheet" href="css/event-details.css">
 </head>
 <body>
-<header id="header"></header>
+<div class="nav-header">
+    <div class="header-links">
+        <ul>
+            <li data-menuanchor="thirdPage"><a href="index.html" style="color: black">HOME</a></li>
+            <li data-menuanchor="thirdPage"><a href="index.html#portfolio" style="color: black">CONTACT</a></li>
+            <li data-menuanchor="secondPage"><a href="index.html#about" style="color: black">ABOUT US</a></li>
+        </ul>
+    </div>
+</div>
 
 <div id="event-details-container">
 </div>
 
-<footer>
-    <div class="footer-content">
-        <p>Contact Us: <a href="mailto:info@pdigsgs.com">info@pdigsgs.com</a></p>
-        <p>Follow us on <a href="#">Social Media</a></p>
-        <p>© 2024 PDIGS-GranSport. All rights reserved.</p>
-    </div>
-</footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -42,12 +43,25 @@
         const lng = dmsToDecimal(formattedLongitude);
 
         const eventDetailsContainer = document.getElementById('event-details-container');
+
         eventDetailsContainer.innerHTML = `
         <div id="event-details-container">
             <h2 class="event-title">${eventName}</h2>
 
-            <div class="event-image-container">
-                <img src="${eventImageUrl}/img1.png" alt="Event Image" style="width: 20em; height: 15em;">
+            <div class="event-image-container" style="
+            background-image: url('${eventImageUrl}/img1.png');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            width: 100%;
+            height: 30em;
+            position: relative;
+            border-radius: 10px;
+        ">
+/*
+                <img src="${eventImageUrl}/img1.png" alt="Event Image" style="width: 20em; height: 15em; display: none">
+*/
                 <button class="prev">❮</button>
                 <button class="next">❯</button>
             </div>
@@ -55,9 +69,12 @@
             <div class="event-info">
                 <p class="event-date"><strong>Date:</strong> ${new Date(eventDate).toLocaleDateString('es-ES')}</p>
                 <p class="event-description"><strong>Description:</strong> ${eventDescription}</p>
-                <p class="event-price"><strong>Price:</strong> €${eventPrice}</p>
-                <p class="event-location"><strong>Location:</strong> ${formattedLatitude}, ${formattedLongitude}</p>
+                <p class="event-price"><strong>Price:</strong> ${eventPrice} €</p>
                 <p class="event-participants"><strong>Max Participants:</strong> ${eventMaxParticipants}</p>
+                <!--FALTA AÑADIR QUE SE VEAN Nº DE PLAZAS LIBRES PONIENDO POR EJEMPLO ->
+                <p class="event-vacants><strong>Vacants:</strong> (aqui iria dollar){eventMaxParticipants - eventParticipants}</p>
+                -->
+                <p class="event-location" style="border-bottom: none"><strong>Location:</strong></p>
             </div>
 
             <div class="event-map">
@@ -87,7 +104,8 @@
 
         // Función para cambiar la imagen
         function changeImage(direction) {
-            const img = eventDetailsContainer.querySelector('img');
+            const imageContainer = eventDetailsContainer.querySelector('.event-image-container');
+            const img = imageContainer.querySelector('img');
             const imgName = img.src.split('/').pop();
             let imgNumber = parseInt(imgName.match(/\d+/)[0], 10);
 
@@ -95,7 +113,11 @@
             if (imgNumber < 1) imgNumber = 3;
             if (imgNumber > 3) imgNumber = 1;
 
-            img.src = `${eventImageUrl}/img${imgNumber}.png`;
+            const newSrc = `${eventImageUrl}/img${imgNumber}.png`;
+            img.src = newSrc;  // Actualiza la fuente de la etiqueta <img>
+
+            // También actualiza el fondo del contenedor
+            imageContainer.style.backgroundImage = `url('${newSrc}')`;
         }
 
         function formatCoordinate(coord) {
