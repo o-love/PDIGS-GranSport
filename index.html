@@ -19,7 +19,13 @@
     <i class="fa fa-bars fa-3x"></i>
     <div class="header-links">
         <ul>
-            <li data-menuanchor="fifthPage"><a href="login.html" style="color: black">SIGN IN</a></li>
+            <li data-menuanchor="fifthPage">
+                <a href="login.html" id="userLink" style="color: black">SIGN IN</a>
+                <div class="dropdown-menu" style="display: none;">
+                    <a href="personal_info.html">Personal Information</a>
+                    <a href="#" id="logout">Log Out</a>
+                </div>
+            </li>
             <li data-menuanchor="fourthPage"><a href="events.html" style="color: black">START</a></li>
             <li data-menuanchor="thirdPage"><a href="#portfolio" style="color: black">CONTACT</a></li>
             <li data-menuanchor="secondPage"><a href="#about" style="color: black">ABOUT US</a></li>
@@ -115,6 +121,48 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.js"></script>
 <script src="js/index.js"></script>
+
+<script type="module">
+    import { auth } from '/js/firebaseIntegration.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userLink = document.getElementById('userLink');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        // Toggle dropdown menu only if logged in
+        userLink.addEventListener('click', function(event) {
+            if (auth.currentUser) {
+                event.preventDefault();  // Prevent default only if user is logged in
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+
+        // Setup logout
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault();
+            auth.signOut().then(() => {
+                console.log('Logout Successful');
+                window.location.href = 'index.html';  // Redirect to login after logout
+            }).catch((error) => {
+                console.error('Logout Failed', error);
+            });
+        });
+
+        auth.onAuthStateChanged(user => {
+            console.log("User status changed: ", user);
+            if (user) {
+                userLink.textContent = "MY DATA";
+                userLink.href = "#";  // Prevent navigation when clicking on "MY DATA"
+                dropdownMenu.style.display = 'none'; // Ensure dropdown is hidden initially
+            } else {
+                userLink.textContent = "SIGN IN";
+                userLink.href = "login.html";  // Ensure the link points to the login page when not logged in
+            }
+        });
+    });
+</script>
+
+
 </body>
 </html>
 

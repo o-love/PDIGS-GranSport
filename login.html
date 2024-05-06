@@ -8,36 +8,7 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<script type="module">
-    import '/js/firebaseIntegration.js';
-    import {auth, userSignup, userSignIn} from '/js/firebaseAuth.js';
-
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            // Redirect to profile page if user is logged in.
-            window.location.href = 'profile.html';
-        } else {
-            // User not logged in or has just logged out.
-        }
-    });
-
-    document.querySelector('.login form .button').addEventListener('click', () => {
-        const email = document.querySelector('.login form input[type="text"]').value;
-        const password = document.querySelector('.login form input[type="password"]').value;
-
-        userSignIn(email, password);
-    });
-
-    document.querySelector('.registration form .button').addEventListener('click', () => {
-        const email = document.querySelector('.registration form input[type="text"]').value;
-        const password = document.querySelector('.registration form input[type="password"]').value;
-
-        userSignup(email, password);
-    });
-
-</script>
-
-
+<a href="index.html" class="go-home-button">Go Home</a>
 <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
@@ -69,5 +40,36 @@
         </div>
     </div>
 </div>
+
+<script type="module">
+    import '/js/firebaseIntegration.js';
+    import {auth, userSignup, userSignIn} from '/js/firebaseAuth.js';
+
+    /** ES INNECESARIA YA QUE SE REDIRECCIONA DESDE EL JS
+
+     auth.onAuthStateChanged((user) => {
+     if (user) {
+     window.location.href = 'profile.html';
+     } else {
+     // User not logged in or has just logged out.
+     }
+     });*/
+
+    document.querySelector('.login form .button').addEventListener('click', () => {
+        const email = document.querySelector('.login form input[type="text"]').value;
+        const password = document.querySelector('.login form input[type="password"]').value;
+
+        userSignIn(email, password);
+    });
+
+    document.querySelector('.registration form .button').addEventListener('click', () => {
+        const email = document.querySelector('.registration form input[type="text"]').value;
+        const password = document.querySelector('.registration form input[type="password"]').value;
+
+        userSignup(email, password);
+    });
+
+</script>
+
 </body>
 </html>

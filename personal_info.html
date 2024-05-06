@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Personal Information</title>
+    <link rel="stylesheet" href="css/profile_info.css"> <!-- Make sure the CSS file is available and correctly linked -->
+</head>
+<body>
+<a href="index.html" class="go-home-button">Go Home</a>
+
+<h1>User Personal Information</h1>
+<div id="userData">
+    <p><strong>Name:</strong> <span id="displayName"></span></p>
+    <p><strong>Surname:</strong> <span id="displaySurname"></span></p>
+    <p><strong>Birthdate:</strong> <span id="displayBirthdate"></span></p>
+    <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+    <br>
+    <button id="deleteAccountBtn">Delete Account</button>
+</div>
+
+<script type="module">
+    import { db, auth } from '/js/firebaseIntegration.js'; // Make sure the path is correct and the file exists
+    import { loadUserData, deleteUserAccount } from '/js/profile.js'; // This will be the script to load user data and handle account deletion
+
+    // Function to load user data when the page loads
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            loadUserData(user.uid);
+
+            // Set up delete account button
+            document.getElementById('deleteAccountBtn').addEventListener('click', () => {
+                deleteUserAccount(user);
+            });
+        } else {
+            window.location.href = 'login.html'; // Redirect to login if not authenticated
+        }
+    });
+</script>
+</body>
+</html>
