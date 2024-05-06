@@ -19,15 +19,23 @@ export function signUpToEvent(eventId) {
             throw "Event does not exist!";
         }
 
-        const eventData = eventDoc.data();
-        console.log(eventData.users)
-        const currentParticipants = usersRef.count().get();
+        const eventData = eventDoc.data()
+
+        if (userId in eventData.participantsIds)
+        {
+            alert("You are already signed up to the event");
+            return;
+        }
+
+        const currentParticipants = eventData.participantsIds.length;
         if (currentParticipants >= eventData.maxParticipants) {
-            throw "Event is full!";
+            alert("Event is full");
+            return;
         }
 
         const userRegistrationRef = doc(db, `events/${eventId}/users`, userId);
 
+        transaction.update(eventRef, { participantsIds: arrayUnion(userId) });
         transaction.set(userRegistrationRef, {
             hasPaid: false,
         })
