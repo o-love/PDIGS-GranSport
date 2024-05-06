@@ -1,5 +1,5 @@
 
-import { auth } from './firebaseIntegration.js';
+import { auth } from '/js/firebaseIntegration.js';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, setPersistence, inMemoryPersistence } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js';
 
 export async function userSignup(email, password) {

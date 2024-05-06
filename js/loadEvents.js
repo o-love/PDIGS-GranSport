@@ -1,5 +1,5 @@
 // Importar la instancia de Firestore desde firebaseIntegration.js
-import {db} from './firebaseIntegration.js';
+import { db } from '/js/firebaseIntegration.js';
 import {collection, getDocs} from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js';
 
 async function fetchEvents() {
