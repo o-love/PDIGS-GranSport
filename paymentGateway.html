@@ -15,11 +15,20 @@
 <script type="module">
     import '/js/firebaseIntegration.js';
     import '/js/firebaseAuth.js';
-    import {signUpToEvent} from "/js/eventManager.js";
+    import "/js/eventManager.js";
 
     const urlParams = new URLSearchParams(window.location.search);
     const eventID = decodeURIComponent(urlParams.get('eventid'));
     const eventPrice = decodeURIComponent(urlParams.get('price'));
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let priceViewItem = document.getElementById('priceView');
+
+        priceViewItem.innerHTML = `
+            <p style="text-align: center">Price: ${eventPrice}€</p>
+        `;
+
+    });
 </script>
 
 <div class="payment-form">
@@ -27,7 +36,7 @@
         <img src="img/payment/pago.jpg">
     </div>
 
-    <form action="/submit-payment" method="post">
+    <form method="post">
         <!-- Número de tarjeta -->
         <div class="form-group icon-field">
             <div class="label-and-icons">
@@ -66,11 +75,13 @@
 
         </div>
 
-        <input type="submit" value="Procesar Pago", onclick="signUpToEvent(eventID)">
+        <div id="priceView">
+        </div>
+        <input type="submit" value="Procesar Pago">
     </form>
 </div>
 
-<script src="js/paymentScript.js"></script>
+<script type="module" src="js/paymentScript.js"></script>
 
 </body>
 </html>

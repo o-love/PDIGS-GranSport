@@ -1,3 +1,5 @@
+import {signUpToEvent} from "/js/eventManager.js";
+
 // Formato automático para el número de tarjeta con límite de 16 dígitos y espacios automáticos
 document.getElementById('cardNumber').addEventListener('input', function(e) {
     // Eliminar todo lo que no sea dígitos
@@ -93,4 +95,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
         alert('El número de tarjeta no es válido. Por favor, compruebe nuevamente.');
         e.preventDefault(); // Detener la presentación del formulario
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventID = decodeURIComponent(urlParams.get('eventid'));
+
+    signUpToEvent(eventID).then(() => {
+        window.location.href = 'index.html';
+    });
 });

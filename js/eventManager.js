@@ -23,13 +23,15 @@ export function signUpToEvent(eventId) {
 
         if (userId in eventData.participantsIds)
         {
-            alert("You are already signed up to the event");
+            alert("Payment cancelled: You are already signed up to the event");
+            window.location.href = 'index.html';
             return;
         }
 
         const currentParticipants = eventData.participantsIds.length;
         if (currentParticipants >= eventData.maxParticipants) {
             alert("Event is full");
+            window.location.href = 'index.html';
             return;
         }
 
