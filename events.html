@@ -36,60 +36,26 @@
     import '/js/firebaseIntegration.js'; // Asegúrate de que esta ruta es correcta
     import '/js/loadEvents.js'; // Asegúrate de que esta ruta es correcta
 </script>
-<script src="/js/eventSearch.js" defer></script>
 <script src="/js/imageCarousel.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         console.log('DOMContentLoaded event triggered');
-        loadHTMLAndExecuteScripts('#header', './header.html', function() {
-            console.log('Header loaded and callback triggered');
-            var path = window.location.pathname;
-            console.log('Current Path:', path);
 
-            if (path.endsWith('events.html')) {
-                var searchInput = document.getElementById('eventSearchInput');
-                if (searchInput) {
-                    searchInput.style.display = 'inline';
-                    console.log('Search input displayed');
-                } else {
-                    console.error('Element #eventSearchInput not found after header load');
-                }
+        const path = window.location.pathname;
+        console.log('Current Path:', path);
+
+        if (path.endsWith('events.html')) {
+            const searchInput = document.getElementById('eventSearchInput');
+            if (searchInput) {
+                searchInput.style.display = 'inline';
+                console.log('Search input displayed');
+            } else {
+                console.error('Element #eventSearchInput not found');
             }
-        });
+        }
     });
 
-    function loadHTMLAndExecuteScripts(selector, sourceFile, callback) {
-        console.log('Attempting to load HTML from:', sourceFile);
-        fetch(sourceFile)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(html => {
-                console.log('HTML loaded from ' + sourceFile);
-                const container = document.querySelector(selector);
-                container.innerHTML = html;
-                executeScripts(container);
-                if (callback) callback();
-            })
-            .catch(error => console.error('Error loading ' + sourceFile + ':', error));
-    }
-
-    function executeScripts(container) {
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(script => {
-            const scriptTag = document.createElement('script');
-            if (script.src) {
-                scriptTag.src = script.src;
-            } else {
-                scriptTag.textContent = script.textContent;
-            }
-            document.head.appendChild(scriptTag).parentNode.removeChild(scriptTag);
-        });
-    }
     function filterEvents() {
         // Obtiene el valor del input de búsqueda, convirtiéndolo a minúsculas para comparaciones insensibles a mayúsculas.
         let searchInput = document.getElementById('eventSearchInput').value.toLowerCase();

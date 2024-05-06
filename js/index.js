@@ -2,7 +2,7 @@ $(document).ready(function () {
     // typing animation
     (function ($) {
         $.fn.writeText = function (content) {
-            var contentArray = content.split(""),
+            let contentArray = content.split(""),
                 current = 0,
                 elem = this;
             setInterval(function () {
@@ -20,7 +20,7 @@ $(document).ready(function () {
     new WOW().init();
 
     // Push the body and the nav over by 285px over
-    var main = function () {
+    const main = function () {
         $(".fa-bars").click(function () {
             $(".nav-screen").animate(
                 {
@@ -87,7 +87,7 @@ $(document).ready(function () {
             var loadedSection = $(this);
 
             //using index
-            if (index == 1) {
+            if (index === 1) {
                 /* add opacity to arrow */
                 $(".fa-chevron-down").each(function () {
                     $(this).css("opacity", "1");
@@ -96,7 +96,7 @@ $(document).ready(function () {
                     $(this).css("color", "black");
                 });
                 $(".header-links").css("background-color", "transparent");
-            } else if (index != 1) {
+            } else if (index !== 1) {
                 $(".header-links a").each(function () {
                     $(this).css("color", "black");
                 });
@@ -104,7 +104,7 @@ $(document).ready(function () {
             }
 
             //using index
-            if (index == 2) {
+            if (index === 2) {
                 /* animate skill bars */
                 $(".skillbar").each(function () {
                     $(this)
@@ -142,7 +142,7 @@ $(document).ready(function () {
     $(function () {
         $("a[href*=#]:not([href=#])").click(function () {
             if (
-                location.pathname.replace(/^\//, "") ==
+                location.pathname.replace(/^\//, "") ===
                 this.pathname.replace(/^\//, "") &&
                 location.hostname == this.hostname
             ) {
@@ -166,10 +166,10 @@ $(document).ready(function () {
     //ajax form
     $(function () {
         // Get the form.
-        var form = $("#ajax-contact");
+        const form = $("#ajax-contact");
 
         // Get the messages div.
-        var formMessages = $("#form-messages");
+        const formMessages = $("#form-messages");
 
         // Set up an event listener for the contact form.
         $(form).submit(function (e) {
@@ -177,7 +177,7 @@ $(document).ready(function () {
             e.preventDefault();
 
             // Serialize the form data.
-            var formData = $(form).serialize();
+            const formData = $(form).serialize();
 
             // Submit the form using AJAX.
             $.ajax({

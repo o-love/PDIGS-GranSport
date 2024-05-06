@@ -6,9 +6,6 @@
     <title>Payment Gateway</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="css/payment.css">
-    <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
-    <!--  -->
 
 </head>
 <body>
@@ -18,7 +15,6 @@
     import "/js/eventManager.js";
 
     const urlParams = new URLSearchParams(window.location.search);
-    const eventID = decodeURIComponent(urlParams.get('eventid'));
     const eventPrice = decodeURIComponent(urlParams.get('price'));
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -36,7 +32,7 @@
         <img src="img/payment/pago.jpg">
     </div>
 
-    <form method="post">
+    <form>
         <!-- Número de tarjeta -->
         <div class="form-group icon-field">
             <div class="label-and-icons">

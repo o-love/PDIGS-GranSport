@@ -1,14 +1,13 @@
 import { db } from "/js/firebaseIntegration.js";
 import {getUser} from "/js/firebaseAuth.js";
 
-import { doc, collection, arrayUnion, setDoc, getDoc, deleteDoc} from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js';
+import { doc, collection, arrayUnion} from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js';
 
 
 import {runTransaction} from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js';
 
 export function signUpToEvent(eventId) {
     const eventRef = doc(db, 'events', eventId);
-    const usersRef = collection(db, `events/${eventId}/users`);
 
     return runTransaction(db, async (transaction) => {
 
@@ -21,7 +20,7 @@ export function signUpToEvent(eventId) {
 
         const eventData = eventDoc.data()
 
-        if (userId in eventData.participantsIds)
+        if (eventData.participantsIds.includes(userId))
         {
             alert("Payment cancelled: You are already signed up to the event");
             window.location.href = 'index.html';

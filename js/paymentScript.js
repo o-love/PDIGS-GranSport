@@ -94,6 +94,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     if (!isValidCardNumber(cardNumber)) {
         alert('El número de tarjeta no es válido. Por favor, compruebe nuevamente.');
         e.preventDefault(); // Detener la presentación del formulario
+        return;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -102,4 +103,6 @@ document.querySelector('form').addEventListener('submit', function(e) {
     signUpToEvent(eventID).then(() => {
         window.location.href = 'index.html';
     });
+
+    e.preventDefault(); // Detener la presentación del formulario
 });
