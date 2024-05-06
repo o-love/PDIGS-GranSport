@@ -7,14 +7,14 @@ async function fetchEvents() {
         const querySnapshot = await getDocs(collection(db, 'events'));
         querySnapshot.forEach(doc => {
             const event = doc.data();
-            createEventElement(event);
+            createEventElement(event, doc.id);
         });
     } catch (error) {
         console.error("Error fetching events:", error);
     }
 }
 
-function createEventElement(event) {
+function createEventElement(event, event_id) {
     const article = document.createElement('article');
     article.className = 'event';
 
@@ -94,7 +94,7 @@ function createEventElement(event) {
     location.innerHTML = `<i class="fa fa-map-marker" aria-hidden="true"></i> Location: ${formattedLocation}`;
 */
     const detailsLink = document.createElement('a');
-    detailsLink.href = `event-details.html?name=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date.toDate())}&description=${encodeURIComponent(event.description)}&price=${encodeURIComponent(event.price)}&image_url=${encodeURIComponent(event.image_url)}&location=${encodeURIComponent(formattedLocation)}&max_participants=${encodeURIComponent(event.max_participants)}`;
+    detailsLink.href = `event-details.html?name=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date.toDate())}&description=${encodeURIComponent(event.description)}&price=${encodeURIComponent(event.price)}&image_url=${encodeURIComponent(event.image_url)}&location=${encodeURIComponent(formattedLocation)}&max_participants=${encodeURIComponent(event.max_participants)}&eventid=${encodeURIComponent(event_id)}`;
     detailsLink.className = 'details-link';
     detailsLink.innerHTML = `<i class="fas fa-arrow-circle-right" aria-hidden="true" style="margin-right: 10px"></i> More Details`;
 

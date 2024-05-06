@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/event-details.css">
 </head>
 <body>
+
 <div class="nav-header">
     <div class="header-links">
         <ul>
@@ -23,7 +24,11 @@
 </div>
 
 
-<script>
+<script type="module">
+    import '/js/firebaseIntegration.js';
+    import '/js/firebaseAuth.js';
+    import {signUpToEvent} from "/js/eventManager.js";
+
     document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const eventName = urlParams.get('name');
@@ -33,6 +38,7 @@
         const eventImageUrl = decodeURIComponent(urlParams.get('image_url'));
         const eventLocation = decodeURIComponent(urlParams.get('location'));
         const eventMaxParticipants = decodeURIComponent(urlParams.get('max_participants'));
+        const eventId = decodeURIComponent(urlParams.get('eventid'))
 
         const [latitude, longitude] = eventLocation.split(', ');
         const formattedLatitude = formatCoordinate(latitude);
@@ -77,9 +83,11 @@
                 <p class="event-location" style="border-bottom: none"><strong>Location:</strong></p>
             </div>
 
+            <button id="joinEventButton">Join Event</button>
             <div class="event-map">
                 <div id="mapid" style="height: 180px;"></div>
             </div>
+
         </div>
         `;
         // Initialize the map and place a marker
@@ -147,11 +155,11 @@
             return decimal;
         }
 
+        const joinButton = document.getElementById('joinEventButton');
+        joinButton.addEventListener('click', function() {
+            signUpToEvent(eventId);
+        });
 
-    });
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-        loadHTMLAndExecuteScripts('#header', './header.html');
     });
 
     function loadHTMLAndExecuteScripts(selector, sourceFile) {
