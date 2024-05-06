@@ -33,7 +33,6 @@ a {
     opacity: 1;
     right: -285px; /* start off behind the scenes */
     -webkit-font-smoothing: antialiased;
-    position: fixed;
     width: 285px;
 }
 
