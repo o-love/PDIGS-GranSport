@@ -3,11 +3,11 @@ import {signUpToEvent} from "/js/eventManager.js";
 // Formato automático para el número de tarjeta con límite de 16 dígitos y espacios automáticos
 document.getElementById('cardNumber').addEventListener('input', function(e) {
     // Eliminar todo lo que no sea dígitos
-    var value = e.target.value.replace(/\D/g, '');
+    let value = e.target.value.replace(/\D/g, '');
     // Cortar a 16 dígitos máximo
     value = value.slice(0, 16);
     // Añadir espacios cada 4 dígitos
-    var finalValue = '';
+    let finalValue = '';
     for (let i = 0; i < value.length; i++) {
         if (i > 0 && i % 4 === 0) {
             finalValue += ' '; // Añadir espacio
@@ -19,8 +19,8 @@ document.getElementById('cardNumber').addEventListener('input', function(e) {
 
 // Formato automático para la fecha de caducidad
 document.getElementById('expiryDate').addEventListener('input', function(e) {
-    var input = e.target.value;
-    var oldVal = e.target.getAttribute('data-old-value') || '';
+    let input = e.target.value;
+    const oldVal = e.target.getAttribute('data-old-value') || '';
 
     // Asegurar solo dígitos y longitud máxima
     input = input.replace(/\D/g, '').slice(0, 4);
@@ -80,7 +80,7 @@ function isValidCardNumber(number) {
         sum += digit;
         shouldDouble = !shouldDouble;
     }
-    return (sum % 10) == 0;
+    return (sum % 10) === 0;
 }
 
 // Validación del CVV para que solo permita 3 dígitos
