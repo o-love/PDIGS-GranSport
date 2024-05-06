@@ -12,6 +12,16 @@
 
 </head>
 <body>
+<script type="module">
+    import '/js/firebaseIntegration.js';
+    import '/js/firebaseAuth.js';
+    import {signUpToEvent} from "/js/eventManager.js";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventID = decodeURIComponent(urlParams.get('eventid'));
+    const eventPrice = decodeURIComponent(urlParams.get('price'));
+</script>
+
 <div class="payment-form">
     <div class="payment-title">
         <img src="img/payment/pago.jpg">
@@ -56,7 +66,7 @@
 
         </div>
 
-        <input type="submit" value="Procesar Pago">
+        <input type="submit" value="Procesar Pago", onclick="signUpToEvent(eventID)">
     </form>
 </div>
 

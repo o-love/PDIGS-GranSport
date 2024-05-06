@@ -24,10 +24,7 @@
 </div>
 
 
-<script type="module">
-    import '/js/firebaseIntegration.js';
-    import '/js/firebaseAuth.js';
-    import {signUpToEvent} from "/js/eventManager.js";
+<script>
 
     document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
@@ -157,7 +154,7 @@
 
         const joinButton = document.getElementById('joinEventButton');
         joinButton.addEventListener('click', function() {
-            signUpToEvent(eventId);
+            window.location.href = `paymentGateway.html?eventid=${eventId}&price=${eventPrice}`
         });
 
     });

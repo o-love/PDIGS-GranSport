@@ -37,11 +37,16 @@ export function signUpToEvent(eventId) {
 
         transaction.update(eventRef, { participantsIds: arrayUnion(userId) });
         transaction.set(userRegistrationRef, {
-            hasPaid: false,
+            hasPaid: true,
         })
     }).then(() => {
         console.log("Signed up successfully!");
+
+        alert("Payment was successful!\nYou are now signed up.");
+        window.location.href = 'index.html';
     }).catch((error) => {
         console.error("Failed to sign up:", error);
+
+        alert("There was an error signing up! Please try again.");
     });
 }
